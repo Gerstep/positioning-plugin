@@ -1,0 +1,21 @@
+{
+  "name": "positioning",
+  "description": "Guide founders and teams through a structured positioning statement exercise. Combines competitive research, strategic questioning, and team alignment to produce a sharp, honest positioning statement.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Stepan Gershuni",
+    "url": "https://github.com/anthropics"
+  },
+  "homepage": "https://github.com/anthropics/positioning-plugin",
+  "repository": "https://github.com/anthropics/positioning-plugin",
+  "license": "MIT",
+  "keywords": [
+    "positioning",
+    "strategy",
+    "startups",
+    "branding",
+    "competitive-analysis",
+    "team-alignment"
+  ],
+  "category": "strategy"
+}
