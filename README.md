@@ -32,7 +32,8 @@ The output is a strategic alignment tool, not marketing copy.
 ### From GitHub (recommended)
 
 ```
-/plugin install Gerstep/positioning-plugin
+/plugin marketplace add Gerstep/positioning-plugin
+/plugin install positioning@positioning-plugins
 ```
 
 ### Local testing

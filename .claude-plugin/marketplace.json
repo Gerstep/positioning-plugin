@@ -1,0 +1,18 @@
+{
+  "name": "positioning-plugins",
+  "owner": {
+    "name": "Stepan Gershuni",
+    "url": "https://github.com/Gerstep"
+  },
+  "plugins": [
+    {
+      "name": "positioning",
+      "source": ".",
+      "description": "Guide founders and teams through a structured positioning statement exercise. Combines competitive research, strategic questioning, and team alignment to produce a sharp, honest positioning statement.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Stepan Gershuni"
+      }
+    }
+  ]
+}
