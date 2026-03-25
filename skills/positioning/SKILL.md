@@ -172,9 +172,22 @@ options:
      "Critical infrastructure verification"]
 ```
 
+**Q5: Your first draft**
+
+After the four questions, immediately ask:
+
+```
+AskUserQuestion:
+- "Now write your positioning statement. Under 30 words. Don't overthink it — gut reaction based on what you just answered."
+  Template: We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
+  Free text
+```
+
+**Do not skip this.** Save the user's draft verbatim. In Phase 6, show it side-by-side with the final synthesized version and call out what changed and why.
+
 ### PHASE 4: Team collection
 
-**Action:** After the user answers all four questions, generate the team exercise.
+**Action:** After the user completes all five questions, generate the team exercise.
 
 Output a clean markdown block that the user can copy-paste to their team:
 
@@ -255,6 +268,11 @@ AskUserQuestion:
 ## Positioning statement
 [Under 30 words. Fill in the template:]
 We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
+
+## Your first draft vs. final
+> **Your draft:** [user's verbatim draft from Phase 3 Q5]
+> **Final:** [synthesized version above]
+> **What changed:** [1-2 sentences on what shifted and why — e.g. "You led with technology, the team led with outcome. The final version centers the customer problem."]
 ```
 
 **Quality rules for final output:**
