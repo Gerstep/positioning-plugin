@@ -13,8 +13,10 @@ Designed for accelerator portfolio companies, internal use, or any team that can
 
 Most positioning exercises produce corporate fluff because they skip the hard questions. This skill forces honesty by:
 - Researching competitors BEFORE asking questions (so you can't hide from reality)
+- Searching for structural analogs in other categories (not just direct competitors)
 - Making every question a forced choice (no "all of the above")
 - Requiring the team to write independently, then collide answers
+- Testing defensibility with a cornerstone question
 - Compressing the final output to under 30 words
 
 The output is not marketing copy. It's a strategic alignment tool.
@@ -96,7 +98,32 @@ Find:
 For each: one-liner, why they matter as context.
 ```
 
-**Launch both agents in parallel.** The skill works with just built-in WebSearch/WebFetch but produces richer research when Perplexity, Exa, or other research MCPs are configured.
+**Agent 3: Structural analog competitors**
+```
+Launch an Agent (general-purpose) with this prompt:
+
+Find companies in DIFFERENT categories that solved a structural analog of this problem:
+[company description from Phase 1].
+
+[INSERT DETECTED TOOL INSTRUCTIONS]
+
+The goal is NOT to find competitors — it's to find companies that faced
+the same STRUCTURAL challenge (accessibility vs. power, automation vs. control,
+expert tool vs. mass market) in a completely different domain.
+
+Find:
+1. 2-3 companies that democratized an expert-only category
+   (e.g., Figma for design, Square for payments, Canva for graphics)
+2. For each: what was the structural barrier, how did they break it,
+   what did incumbents dismiss that became the new company's cornerstone
+3. What pattern emerges across these analogs that applies to [company]?
+
+Output as a table + 1 paragraph on the structural pattern.
+```
+
+**Why this matters:** Direct competitors reveal table stakes. Adjacent competitors reveal alternative approaches. Structural analogs reveal the deeper pattern — what's structurally broken in the category that nobody inside it can see. The most defensible positioning often comes from structural analogs, not direct competition.
+
+**Launch all three agents in parallel.** The skill works with just built-in WebSearch/WebFetch but produces richer research when Perplexity, Exa, or other research MCPs are configured.
 
 **After agents return:** Present findings to user as a compact summary. Ask:
 
@@ -147,14 +174,30 @@ options:
 
 **Q3: The core bet**
 
+Before presenting options, first surface the shared assumption:
+
+```
+Think step by step:
+1. Review all competitors from Phase 2 (direct, adjacent, AND structural analogs)
+2. Identify what ALL of them assume to be true about this market
+3. Ask: "Is there a direction that BREAKS this shared assumption?"
+4. Include that assumption-breaking direction as one of the options below
+```
+
 ```
 header: "The core bet"
 question: |
   You can only invest in ONE of these directions for the next 6 months.
   Which one?
+
+  Note: Based on research, all your competitors seem to share this assumption:
+  "[STATE THE SHARED ASSUMPTION]"
+  One of the options below challenges this assumption directly.
 options:
-  - [Generate 3-4 options based on the white space found in research,
+  - [Generate 2-3 options based on the white space found in research,
      each with a 1-sentence description of what it means concretely]
+  - [Generate 1 option that BREAKS the shared assumption identified above —
+     label it: "Break the assumption: [description]"]
   - "Something else (write your own)"
 ```
 
@@ -273,6 +316,9 @@ We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
 > **Your draft:** [user's verbatim draft from Phase 3 Q5]
 > **Final:** [synthesized version above]
 > **What changed:** [1-2 sentences on what shifted and why — e.g. "You led with technology, the team led with outcome. The final version centers the customer problem."]
+
+## The cornerstone test
+[Answer this: "What did your competitors explicitly reject or ignore that you made central to your product?" If the answer is "nothing" — the positioning is incremental, not structural. If specific — this is the most defensible part of the positioning.]
 ```
 
 **Quality rules for final output:**
