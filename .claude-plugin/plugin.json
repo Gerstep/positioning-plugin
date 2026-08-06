@@ -1,10 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "positioning",
-  "description": "Guide founders and teams through a structured positioning statement exercise. Combines competitive research, strategic questioning, and team alignment to produce a sharp, honest positioning statement.",
-  "version": "1.0.0",
+  "displayName": "Positioning",
+  "description": "A 15-minute forced-choice positioning session for startups. Pick a category path (compete, reframe, or create), define who you ignore, write a sub-30-word positioning statement, find your mind-virus phrase, and plan a 90-day window of proof. Co-founders run it solo; the skill compiles their answers and forces the tiebreaks.",
+  "version": "2.0.0",
   "author": {
     "name": "Stepan Gershuni",
-    "url": "https://github.com/Gerstep"
+    "url": "https://cyber.fund"
   },
   "homepage": "https://github.com/Gerstep/positioning-plugin",
   "repository": "https://github.com/Gerstep/positioning-plugin",
@@ -14,8 +16,12 @@
     "strategy",
     "startups",
     "branding",
+    "category-design",
+    "messaging",
     "competitive-analysis",
-    "team-alignment"
+    "founder-alignment"
   ],
-  "category": "strategy"
+  "metadata": {
+    "category": "strategy"
+  }
 }

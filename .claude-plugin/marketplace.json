@@ -1,5 +1,6 @@
 {
   "name": "positioning-plugins",
+  "description": "Positioning and strategy skills for startups: a 15-minute forced-choice positioning session with co-founder compile and 90-day proof check-ins.",
   "owner": {
     "name": "Stepan Gershuni",
     "url": "https://github.com/Gerstep"
@@ -8,8 +9,8 @@
     {
       "name": "positioning",
       "source": "./",
-      "description": "Guide founders and teams through a structured positioning statement exercise. Combines competitive research, strategic questioning, and team alignment to produce a sharp, honest positioning statement.",
-      "version": "1.0.0",
+      "description": "A 15-minute forced-choice positioning session for startups. Pick a category path, define who you ignore, write a sub-30-word positioning statement, find your mind-virus phrase, and plan a 90-day window of proof. Co-founders run it solo; the skill compiles their answers and forces the tiebreaks.",
+      "version": "2.0.0",
       "author": {
         "name": "Stepan Gershuni"
       }

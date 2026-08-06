@@ -1,297 +1,87 @@
 ---
 name: positioning
-description: Guide founders and teams through a structured positioning statement exercise. Combines competitive research, strategic questioning, and team alignment to produce a sharp, honest positioning statement. Use when a company needs to define who they are, what they offer, and why anyone should care.
+description: Run a 15-minute forced-choice positioning session for a startup. Pick a category path (compete, reframe, or create), decide who you serve and who you ignore, write a positioning statement under 30 words, find the mind-virus phrase, choose a brand archetype, and plan a 90-day window of proof. Each co-founder runs it solo; the skill then compiles all answers, surfaces contradictions, and forces decisions. Use when a company needs positioning, messaging, category strategy, a value proposition, or founder alignment on "why us".
+license: MIT
+metadata:
+  author: "Stepan Gershuni, cyber.fund"
+  version: "2.0.0"
 ---
 
-# Positioning Skill
+# Positioning
 
-Structured positioning statement exercise for startups and teams. Combines deep competitive research with forced-choice strategic questions to produce an honest, compressed positioning statement.
+A 15-minute forced-choice session that produces a positioning statement and the
+artifacts a startup needs to hold a position: message architecture, mind virus,
+compass, ignore list, worldview, archetype, and a 90-day proof plan.
 
-Designed for accelerator portfolio companies, internal use, or any team that can't answer "why us?" in one sentence.
+Position or be positioned. If you don't pick a category, you will be assigned
+one. The market's default setting is disbelief, so competition has shifted from
+making claims to surviving verification. This skill forces the choices, then
+makes every claim either provable today or a dated bet.
 
-## Philosophy
+## Operating rules (read first)
 
-Most positioning exercises produce corporate fluff because they skip the hard questions. This skill forces honesty by:
-- Researching competitors BEFORE asking questions (so you can't hide from reality)
-- Making every question a forced choice (no "all of the above")
-- Requiring the team to write independently, then collide answers
-- Compressing the final output to under 30 words
+**Questions.** If an interactive question tool is available (for example
+AskUserQuestion in Claude Code or Cowork), use it for every forced choice.
+Otherwise ask in plain text: one question at a time, numbered options, wait for
+the answer. Never stack questions in plain-text mode.
 
-The output is not marketing copy. It's a strategic alignment tool.
+**Forced choice.** No "all of the above". Gut answers over polished answers —
+tell the user 30 seconds per question is enough. The pain of choosing is the
+exercise.
 
-## Workflow
+**Time.** The session targets 15 minutes total. Never block on research; never
+loop. Phase budgets are in the session script. If research has not returned by
+the statement phase, proceed without it and mark the pack "research pending".
 
-### PHASE 1: Context gathering
+**Research.** If a subagent tool is available, launch research in the
+background during setup. If only web search is available, run a few quick
+searches inline between phases. If there is no web access, skip research and
+say so in the output. Never invent competitors.
 
-**Action:** Use `AskUserQuestion` to collect basic info.
+**Files.** All artifacts live in `positioning/` under the current working
+directory (create it if needed). Never overwrite another founder's answers
+file.
 
-```
-Questions:
-1. "What does the company do? (2-3 sentences, plain language)"
-   - Free text
-2. "Who is the target customer today?"
-   - Free text
-3. "What stage? What's the team size?"
-   - Options: [Pre-seed solo/duo, Pre-seed with team (3-8), Seed, Series A+]
-4. "Is there an existing website, pitch deck, or memo I should read?"
-   - Free text (URLs or file paths)
-```
+## Which moment is this?
 
-**If the user provides a file path or URL:** Read it. Extract product description, claimed differentiators, current messaging, pricing, and team.
+If the user asked for a specific mode in plain words ("compile", "proof check",
+"start over", "new session"), obey that. Otherwise check `positioning/` in the
+current directory and route:
 
-### PHASE 2: Competitive research
-
-**Action:** Before launching research, detect available research tools by calling `ListMcpResourcesTool` or checking which MCP tools are available. Build a tool instruction block based on what's present.
-
-**Tool detection priority (check in order, use all that are available):**
-
-| MCP Tool Pattern | What it provides | How to use |
+| State | Moment | Script |
 |---|---|---|
-| `mcp__perplexity__perplexity_research` | Deep multi-source research | Use for the primary competitive landscape query |
-| `mcp__perplexity__perplexity_search` | Fast web-grounded search | Use for quick competitor lookups |
-| `mcp__exa__web_search_exa` | Semantic web search | Use for finding similar/adjacent companies |
-| `mcp__parallel-search__web_search_preview` | Parallel web search | Use for batch competitor searches |
-| `mcp__parallel-task__createDeepResearch` | Analyst-grade research reports | Use for deep competitor analysis |
-| `mcp__firecrawl__firecrawl_search` | Web search + scraping | Use for competitor website analysis |
-| `WebSearch` (built-in) | Basic web search | Always available as fallback |
-| `WebFetch` (built-in) | Fetch URL content | Always available as fallback |
-
-**Compose the research tool instructions dynamically.** For example:
-- If Perplexity is available: "Use `mcp__perplexity__perplexity_research` for the main competitive landscape query, then `WebFetch` to verify specific competitor websites."
-- If Exa is available: "Use `mcp__exa__web_search_exa` for semantic search to find companies similar to [description]."
-- If nothing extra is available: "Use `WebSearch` for competitor queries and `WebFetch` on each competitor's website."
-
-**Launch 2 parallel agents with the detected tools:**
-
-**Agent 1: Direct competitors**
-```
-Launch an Agent (general-purpose) with this prompt:
-
-Research the competitive landscape for: [company description from Phase 1].
-
-[INSERT DETECTED TOOL INSTRUCTIONS — tell the agent exactly which tools to use]
-
-Find:
-1. The 3-5 closest competitors (same customer, same problem)
-2. For each: one-liner positioning, pricing, key differentiator, weakness
-3. What do ALL of them say? (common claims = table stakes, not differentiators)
-4. What does NONE of them say? (potential white space)
-
-Output as a markdown table + 3 bullet summary.
-```
-
-**Agent 2: Adjacent/aspirational competitors**
-```
-Launch an Agent (general-purpose) with this prompt:
-
-Research companies adjacent to: [company description from Phase 1].
-
-[INSERT DETECTED TOOL INSTRUCTIONS]
-
-Find:
-1. 2-3 companies solving a related problem for the same customer
-2. 2-3 companies solving the same problem for a different customer
-3. Any company that this team might secretly aspire to be (the "we're like X but for Y" reference)
-
-For each: one-liner, why they matter as context.
-```
-
-**Launch both agents in parallel.** The skill works with just built-in WebSearch/WebFetch but produces richer research when Perplexity, Exa, or other research MCPs are configured.
-
-**After agents return:** Present findings to user as a compact summary. Ask:
-
-```
-AskUserQuestion:
-- "Anything missing or wrong in this competitive picture?"
-  Options: [Looks right, Let me add/correct]
-- "Which competitor do founders most often compare you to?"
-  Free text
-```
-
-### PHASE 3: The four questions
-
-**Action:** Present the four positioning questions using `AskUserQuestion`. Each question is informed by the competitive research.
-
-**IMPORTANT:** Frame questions using SPECIFIC competitor names and findings from Phase 2. Do not use generic placeholders.
-
----
-
-**Q1: The founder/customer test**
-
-```
-header: "The customer test"
-question: |
-  Your ideal customer is evaluating you against [TOP COMPETITOR 1] and [TOP COMPETITOR 2].
-  They can only pick one. Why do they pick you?
-
-  Rules:
-  - Don't say "price" or "we're cheaper"
-  - Don't say "better technology" without specifics
-  - Don't say "customer service" (everyone says this)
-options:
-  - [Generate 3-4 options based on research findings, each representing a distinct strategic direction]
-  - "Something else (write your own)"
-```
-
-**Q2: The honest gap**
-
-```
-header: "The honest gap"
-question: |
-  What is the single biggest reason your ideal customer says NO today?
-  Be specific. Not "we're early stage" — that's a cop-out.
-options:
-  - [Generate 3-4 options based on competitive weaknesses found in research]
-  - "Something else (write your own)"
-```
-
-**Q3: The core bet**
-
-```
-header: "The core bet"
-question: |
-  You can only invest in ONE of these directions for the next 6 months.
-  Which one?
-options:
-  - [Generate 3-4 options based on the white space found in research,
-     each with a 1-sentence description of what it means concretely]
-  - "Something else (write your own)"
-```
-
-**Q4: Market scope**
-
-```
-header: "Market scope"
-question: |
-  Which market are you actually in? Pick the one that defines your roadmap.
-options:
-  - [Generate 3-4 market definitions from narrow to broad,
-     based on the company's product and competitive research.
-     Example: "Smart contract security for Solidity only" vs
-     "AI code security for all languages" vs
-     "Critical infrastructure verification"]
-```
-
-**Q5: Your first draft**
-
-After the four questions, immediately ask:
-
-```
-AskUserQuestion:
-- "Now write your positioning statement. Under 30 words. Don't overthink it — gut reaction based on what you just answered."
-  Template: We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
-  Free text
-```
-
-**Do not skip this.** Save the user's draft verbatim. In Phase 6, show it side-by-side with the final synthesized version and call out what changed and why.
-
-### PHASE 4: Team collection
-
-**Action:** After the user completes all five questions, generate the team exercise.
-
-Output a clean markdown block that the user can copy-paste to their team:
-
-```markdown
-# Positioning Exercise — [Company Name]
-
-Answer each question independently. Don't discuss with teammates first.
-Spend max 10 minutes total. Gut reactions > polished answers.
-
-## 1. The customer test
-[Customized question with competitor names from research]
-
-## 2. The honest gap
-[Customized question]
-
-## 3. The core bet
-[Customized question with forced-choice options]
-
-## 4. Market scope
-[Customized question with scope options]
-
-## 5. Positioning statement
-Fill in, keep under 30 words:
-We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
-
----
-Return all answers to [user name] by [user specifies deadline].
-```
-
-Then ask:
-```
-AskUserQuestion:
-- "Send this to your team and paste all their replies here when you have them.
-   How many people will respond?"
-  Free text
-```
-
-### PHASE 5: Synthesis
-
-**Action:** When user pastes team replies, analyze them.
-
-**Analysis structure:**
-
-1. **Alignment map** — Where does everyone agree? (These are real. Use them.)
-2. **Contradiction map** — Where do people disagree? (These are the strategic decisions that need to be made.)
-3. **Surprise findings** — Anything one person said that nobody else did but is clearly right.
-4. **Gap analysis** — Questions nobody answered well (signals the team hasn't thought this through).
-
-Present this analysis, then ask:
-
-```
-AskUserQuestion:
-- "For each contradiction, which direction do you want to go?"
-  [Present each contradiction as a forced binary choice]
-```
-
-### PHASE 6: Final positioning statement
-
-**Action:** Generate the combined positioning statement.
-
-**Output format:**
-
-```markdown
-# [Company Name] — Positioning Statement
-
-## The customer test
-[2-3 sentences. Lead with the answer. No fluff.]
-
-## The honest gap
-[1-2 sentences. Brutally honest.]
-
-## The core bet
-[2-3 sentences. What you're building, what exists today vs. planned.]
-
-## Market scope
-[1 sentence. The market you chose and what it excludes.]
-
-## Positioning statement
-[Under 30 words. Fill in the template:]
-We help [WHO] achieve [WHAT] through [HOW], unlike [ALTERNATIVE].
-
-## Your first draft vs. final
-> **Your draft:** [user's verbatim draft from Phase 3 Q5]
-> **Final:** [synthesized version above]
-> **What changed:** [1-2 sentences on what shifted and why — e.g. "You led with technology, the team led with outcome. The final version centers the customer problem."]
-```
-
-**Quality rules for final output:**
-- No sentence over 20 words
-- No adjectives that can't be verified (remove "innovative", "cutting-edge", "world-class", "unique")
-- Every claim must be either (a) already true or (b) explicitly marked as a bet
-- If something is aspirational, say "By [date], we plan to..." — not "We are..."
-- Total length: under 200 words for all sections combined
-
-**Save to:** Ask the user where they'd like to save the output.
-
-### PHASE 7: Iteration (optional)
-
-If user wants to iterate, use `AskUserQuestion` to identify which section needs work. Re-run only that section's question with tighter constraints.
-
-## Anti-patterns to avoid
-
-- **Don't generate positioning without research.** The competitive context is what makes questions sharp.
-- **Don't let the user skip the team exercise.** Solo positioning statements are echo chambers.
-- **Don't use marketing language.** If it sounds like it belongs on a SaaS landing page, rewrite it.
-- **Don't accept "all of the above" answers.** Force choices. The pain of choosing IS the exercise.
-- **Don't make the final statement longer than 30 words.** Compression is clarity.
+| No `positioning/` dir, or no `answers-*.md` files | First run — run the session | `references/session.md` |
+| One or more `answers-*.md`, no `positioning.md` | Ask: run your own session, or compile the team's answers now? | `references/session.md` or `references/compile.md` |
+| `positioning.md` exists | Offer: proof check-in, a new founder session, or recompile | `references/proof.md` |
+
+A solo founder goes straight from session to the full pack — compile is only
+for teams.
+
+## The method in one breath
+
+Category first (compete / reframe / create — the maturity of the category
+decides which is honest). Then community (who you speak to, who you ignore).
+Then the logical spine: what is it, why does it matter, why you, why now. Then
+compress into an ONLYness or FIRSTness statement under 30 words, find the
+phrase the market could repeat without you in the room, pick the archetype that
+gives the position feel, and book three proofs for the next 90 days. Detail
+lives in the reference scripts — load only the one you need.
+
+## Quality rules (apply to every artifact)
+
+- No sentence over 20 words. Statement under 30 words.
+- No unverifiable adjectives: innovative, cutting-edge, world-class, unique,
+  seamless, revolutionary.
+- Every claim is either true today or explicitly a bet with a proof date.
+- Aspirational is written "By [date] we will..." — never "We are...".
+- If it reads like a SaaS landing page, rewrite it drier.
+
+## Files in this skill
+
+- `references/session.md` — the 15-minute founder session (phases, questions, timings)
+- `references/research.md` — competitor research briefs and timebox
+- `references/archetypes.md` — the 90-second archetype picker
+- `references/compile.md` — merge co-founder answers, force tiebreaks, emit the pack
+- `references/proof.md` — the 90-day proof check-in
+- `assets/pack-template.md` — template for `positioning/positioning.md`
+- `assets/answers-template.md` — template for per-founder answers files
