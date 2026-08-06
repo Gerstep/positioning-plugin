@@ -28,7 +28,7 @@ folder in your project:
 
 ## How it works
 
-One command, three moments. The skill detects which one you're in:
+One command, two moments. The skill detects which one you're in:
 
 1. **Session** — each co-founder runs it solo. 15 minutes, forced choices, gut
    answers. Competitive research runs in the background while you answer.
@@ -37,9 +37,6 @@ One command, three moments. The skill detects which one you're in:
 2. **Compile** — when every founder has run it, one of you runs it again: it
    maps agreements, surfaces contradictions, forces a decision on each, and
    writes the final pack — with each founder's draft shown against the final.
-3. **Proof** — weeks later, run it again: did the proofs ship, is the market
-   repeating your phrase, has anyone joined your category, is it time to drop
-   "first".
 
 Every claim in the final statement passes a skeptic check against public
 evidence. What can't be verified isn't deleted — it's rewritten as "By

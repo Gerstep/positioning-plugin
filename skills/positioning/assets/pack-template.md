@@ -9,7 +9,8 @@ erase.*
 > {We are the ONLY/FIRST {category} that {delivers X}, unlike {competitor},
 > which only {delivers Y}.}
 
-*Under 30 words. {If FIRST: "First" has a shelf life — see proof check-ins.}*
+*Under 30 words. {If FIRST: "First" has a shelf life — when others join the
+category and someone starts redefining "best", drop it.}*
 
 ## Mind virus
 
@@ -85,7 +86,3 @@ that did not survive verification live here as bets.
 > **{Founder}:** "{verbatim draft}"
 > **Final:** "{final statement}"
 > **What changed:** {one or two sentences}
-
-## Check-ins
-
-- {date}: {proof statuses, decisions, statement changes}

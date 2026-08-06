@@ -44,15 +44,15 @@ file.
 
 ## Which moment is this?
 
-If the user asked for a specific mode in plain words ("compile", "proof check",
-"start over", "new session"), obey that. Otherwise check `positioning/` in the
+If the user asked for a specific mode in plain words ("compile", "start
+over", "new session"), obey that. Otherwise check `positioning/` in the
 current directory and route:
 
 | State | Moment | Script |
 |---|---|---|
 | No `positioning/` dir, or no `answers-*.md` files | First run — run the session | `references/session.md` |
 | One or more `answers-*.md`, no `positioning.md` | Ask: run your own session, or compile the team's answers now? | `references/session.md` or `references/compile.md` |
-| `positioning.md` exists | Offer: proof check-in, a new founder session, or recompile | `references/proof.md` |
+| `positioning.md` exists | Offer: a new founder session, or recompile to update the pack | `references/session.md` or `references/compile.md` |
 
 A solo founder goes straight from session to the full pack — compile is only
 for teams.
@@ -82,6 +82,5 @@ lives in the reference scripts — load only the one you need.
 - `references/research.md` — competitor research briefs and timebox
 - `references/archetypes.md` — the 90-second archetype picker
 - `references/compile.md` — merge co-founder answers, force tiebreaks, emit the pack
-- `references/proof.md` — the 90-day proof check-in
 - `assets/pack-template.md` — template for `positioning/positioning.md`
 - `assets/answers-template.md` — template for per-founder answers files
