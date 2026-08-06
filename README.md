@@ -87,13 +87,11 @@ Then run `/positioning`.
 
 **Codex**
 
-```
-git clone https://github.com/Gerstep/positioning-plugin
-cp -r positioning-plugin/skills/positioning ~/.agents/skills/
-```
+Settings → Plugins → **Add plugin marketplace** → paste
+`Gerstep/positioning-plugin` as the source (leave Git ref on `main`) → **Add
+marketplace** → install **positioning**.
 
-Then invoke `$positioning` (or browse `/skills`). Working inside a clone of
-this repo also works — Codex discovers `.agents/skills/` automatically.
+Then invoke `$positioning` (or browse `/skills`).
 
 **Anything that speaks [Agent Skills](https://agentskills.io)** — the skill is
 spec-compliant; point your agent at `skills/positioning/`.
